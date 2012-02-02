@@ -1,4 +1,3 @@
-
 SNotifications
 ====================================================================================================
 
@@ -22,35 +21,35 @@ Usage
 1. Create an instance of `SNotifications` that can be accessed by all your classes. PHP best 
 practices recommend this to be inside a class.
 
-    require('SNotifications.php');
+        require('SNotifications.php');
 
-    class MyGlobals 
-    {
-      public static $notifications = new SNotifications();
-    }
+        class MyGlobals 
+        {
+          public static $notifications = new SNotifications();
+        }
 
 2. Add observers for your event names.
 
-    MyGlobals::$notifications->addObserver('new-user-created', 
-      array('UserDataStorage', 'onNewUserCreatedNotification'));
+        MyGlobals::$notifications->addObserver('new-user-created', 
+          array('UserDataStorage', 'onNewUserCreatedNotification'));
 
 3. Observers must be able to receive a SNotification class.
 
-    class UserDataStorage
-    {
-      public static onNewUserCreatedNotification($notification)
-      {
-        // Notification senders can pass additional data. In here, we're expecting 
-        // senders of the `new-user-created` event to pass in the userId
-        $userId = $notification->getDataItem('userId', null);
-        // do something with userId
-      }
-    }
+        class UserDataStorage
+        {
+          public static onNewUserCreatedNotification($notification)
+          {
+            // Notification senders can pass additional data. In here, we're expecting 
+            // senders of the `new-user-created` event to pass in the userId
+            $userId = $notification->getDataItem('userId', null);
+            // do something with userId
+          }
+        }
 
 4. Somewhere in your code, post notifications.
 
-    // post a `new-user-created` event with a `userId` data item 
-    MyGlobals::$notifications->post('new-user-created', array('userId' => '<a-user-id>'));
+        // post a `new-user-created` event with a `userId` data item 
+        MyGlobals::$notifications->post('new-user-created', array('userId' => '<a-user-id>'));
     
 
 Usage (Yii Framework)
